@@ -67,8 +67,12 @@ public class Harvester : MonoBehaviour
 
     private IEnumerator CollectResource()
     {
-        yield return new WaitUntil(() => Vector3.Distance(transform.position, _currentTarget.transform.position) <= _collectionDistance);
+        var cachedTransform = transform;
+        var targetPos = _currentTarget.transform.position;
 
+        yield return new WaitUntil(() => 
+            Vector3.SqrMagnitude(cachedTransform.position - targetPos) <= _collectionDistance * _collectionDistance);
+        
         _agent.isStopped = true;
         _animator.SetBool(CommandCollect, true);
 
@@ -101,8 +105,12 @@ public class Harvester : MonoBehaviour
 
     private IEnumerator DeliverResource()
     {
-        yield return new WaitUntil(() => Vector3.Distance(transform.position, _homeSupplyCenter.transform.position) <= _collectionDistance);
+        var cachedTransform = transform;
+        var basePos = _homeSupplyCenter.transform.position;
 
+        yield return new WaitUntil(() => 
+            Vector3.SqrMagnitude(cachedTransform.position - basePos) <= _collectionDistance * _collectionDistance);
+        
         OnResourceDelivered?.Invoke(_currentTarget);
         ResetState();
     }
