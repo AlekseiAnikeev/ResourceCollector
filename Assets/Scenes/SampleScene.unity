@@ -817,7 +817,7 @@ PrefabInstance:
     - target: {fileID: 5186067968881304872, guid: 35af56d0f12a8254c9ff56701a58c2d9, type: 3}
       propertyPath: _unitPrefab
       value: 
-      objectReference: {fileID: 3572893548817034084, guid: 5c46d1f175ea31740ac35aa36035ecd8, type: 3}
+      objectReference: {fileID: 3066828874275161288, guid: 5c46d1f175ea31740ac35aa36035ecd8, type: 3}
     - target: {fileID: 5186067968881304872, guid: 35af56d0f12a8254c9ff56701a58c2d9, type: 3}
       propertyPath: initialUnits
       value: 3

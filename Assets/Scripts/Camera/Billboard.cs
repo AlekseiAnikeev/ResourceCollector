@@ -15,7 +15,7 @@ namespace Camera
 
         private void LateUpdate()
         {
-            if(_mainCamera != null)
+            if (_mainCamera != null)
             {
                 transform.rotation = _mainCamera.transform.rotation * _initialRotation;
             }

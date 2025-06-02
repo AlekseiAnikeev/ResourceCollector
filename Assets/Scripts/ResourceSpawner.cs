@@ -3,14 +3,11 @@ using System.Collections.Generic;
 
 public class ResourceSpawner : MonoBehaviour
 {
-    [Header("Настройки")]
+    [SerializeField] private Resource _resourcePrefab;
     [SerializeField] private float _spawnRadius = 50f;
     [SerializeField] private float _spawnInterval = 10f;
     [SerializeField] private int _poolSize = 20;
-    
-    [Header("Зависимости")]
-    [SerializeField] private GameObject _resourcePrefab;
-    
+
     private readonly Queue<Resource> _resourcePool = new();
     private readonly List<Resource> _activeResources = new();
 
@@ -19,7 +16,7 @@ public class ResourceSpawner : MonoBehaviour
         InitializePool();
         InvokeRepeating(nameof(SpawnResource), 0f, _spawnInterval);
     }
-    
+
     public List<Resource> GetActiveResources() => _activeResources;
 
     public void ReturnResource(Resource resource)
@@ -30,14 +27,14 @@ public class ResourceSpawner : MonoBehaviour
         _activeResources.Remove(resource);
         _resourcePool.Enqueue(resource);
     }
-    
+
     private void InitializePool()
     {
         for (var i = 0; i < _poolSize; i++)
         {
             var obj = Instantiate(_resourcePrefab, Vector3.zero, Quaternion.identity);
             var resource = obj.GetComponent<Resource>();
-            obj.SetActive(false);
+            obj.gameObject.SetActive(false);
             _resourcePool.Enqueue(resource);
         }
     }

@@ -4,17 +4,16 @@ using UI;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class Harvester : MonoBehaviour
 {
     private const string CommandMove = "Move";
     private const string CommandCollect = "Collect";
     private const string CommandIdle = "Idle";
 
-    [Header("Настройки")]
-    [SerializeField] private float _collectionDistance = 0.5f;
-    [SerializeField] private float _collectionDelay = 2f;
+    [Range(0f, 3f)] [SerializeField] private float _collectionDistance = 0.5f;
+    [Range(0f, 20f)] [SerializeField] private float _collectionDelay = 2f;
 
-    [Header("Зависимости")]
     [SerializeField] private ParticleSystem _collectingParticles;
     [SerializeField] private LineRenderer _pathRenderer;
     [SerializeField] private ProgressBar _progressBar;
@@ -36,7 +35,7 @@ public class Harvester : MonoBehaviour
     {
         _agent = GetComponent<NavMeshAgent>();
         _pathRenderer.positionCount = 0;
-        _progressBar?.SetVisibility(false);
+        _progressBar?.Deactivate();
     }
 
     private void OnDestroy()
@@ -51,7 +50,7 @@ public class Harvester : MonoBehaviour
 
     public void AssignResource(Resource resource)
     {
-        if (!IsAvailable) 
+        if (!IsAvailable)
             return;
 
         IsAvailable = false;
@@ -70,14 +69,14 @@ public class Harvester : MonoBehaviour
         var cachedTransform = transform;
         var targetPos = _currentTarget.transform.position;
 
-        yield return new WaitUntil(() => 
+        yield return new WaitUntil(() =>
             Vector3.SqrMagnitude(cachedTransform.position - targetPos) <= _collectionDistance * _collectionDistance);
-        
+
         _agent.isStopped = true;
         _animator.SetBool(CommandCollect, true);
 
         float timer = 0f;
-        _progressBar?.SetVisibility(true);
+        _progressBar?.Activate();
 
         while (timer < _collectionDelay)
         {
@@ -89,7 +88,7 @@ public class Harvester : MonoBehaviour
             yield return null;
         }
 
-        _progressBar?.SetVisibility(false);
+        _progressBar?.Deactivate();
         _agent.isStopped = false;
 
         if (_currentTarget != null && !_currentTarget.IsCollected)
@@ -108,9 +107,9 @@ public class Harvester : MonoBehaviour
         var cachedTransform = transform;
         var basePos = _homeSupplyCenter.transform.position;
 
-        yield return new WaitUntil(() => 
+        yield return new WaitUntil(() =>
             Vector3.SqrMagnitude(cachedTransform.position - basePos) <= _collectionDistance * _collectionDistance);
-        
+
         OnResourceDelivered?.Invoke(_currentTarget);
         ResetState();
     }
@@ -124,8 +123,10 @@ public class Harvester : MonoBehaviour
                 _pathRenderer.positionCount = _agent.path.corners.Length;
                 _pathRenderer.SetPositions(_agent.path.corners);
             }
+
             yield return new WaitForSeconds(0.1f);
         }
+
         _pathRenderer.positionCount = 0;
     }
 
@@ -161,6 +162,7 @@ public class Harvester : MonoBehaviour
             _collectingParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             _collectingParticles.Play();
         }
+
         AudioSource.PlayClipAtPoint(_collectSound, transform.position);
     }
 

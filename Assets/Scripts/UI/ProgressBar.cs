@@ -4,45 +4,55 @@ using UnityEngine.UI;
 
 namespace UI
 {
+    [RequireComponent(typeof(CanvasGroup))]
     public class ProgressBar : MonoBehaviour
     {
-        [Header("Настройки")]
-        [SerializeField] private float hideDelay = 0.5f;
+        [Range(0f, 1f)] [SerializeField] private float _hideDelay = 0.5f;
+        [SerializeField] private Image _fillImage;
 
-        [Header("Зависимости")]
-        [SerializeField] private Image fillImage;
-        [SerializeField] private CanvasGroup canvasGroup;
-
+        private CanvasGroup _canvasGroup;
         private Coroutine _hideCoroutine;
 
         private void Awake()
         {
-            if(canvasGroup == null)
-                canvasGroup = GetComponent<CanvasGroup>();
-            
-            SetVisibility(false);
+            _canvasGroup = GetComponent<CanvasGroup>();
+
+            Deactivate();
         }
 
         public void UpdateProgress(float progress)
         {
-            fillImage.fillAmount = Mathf.Clamp01(progress);
-            if(_hideCoroutine != null) 
+            _fillImage.fillAmount = Mathf.Clamp01(progress);
+
+            if (_hideCoroutine != null)
                 StopCoroutine(_hideCoroutine);
         }
 
-        public void SetVisibility(bool visible)
+        public void Activate() => SetVisibility(true);
+
+        public void Deactivate() => SetVisibility(false);
+
+        private void SetVisibility(bool visible)
         {
-            if(canvasGroup == null) return;
-        
-            canvasGroup.alpha = visible ? 1 : 0;
-            if(visible)
-                _hideCoroutine = StartCoroutine(HideAfterDelay());
+            if (_canvasGroup == null)
+                return;
+
+            _canvasGroup.alpha = visible ? 1 : 0;
+
+            if (visible == false)
+                return;
+
+            if (_hideCoroutine != null)
+                StopCoroutine(_hideCoroutine);
+
+            _hideCoroutine = StartCoroutine(HideAfterDelay());
         }
 
         private IEnumerator HideAfterDelay()
         {
-            yield return new WaitForSeconds(hideDelay);
-            canvasGroup.alpha = 0;
+            yield return new WaitForSeconds(_hideDelay);
+
+            Deactivate();
         }
     }
 }

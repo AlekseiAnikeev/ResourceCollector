@@ -5,7 +5,6 @@ namespace UI
 {
     public class UIManager : MonoBehaviour
     {
-        [Header("Зависимости")]
         [SerializeField] private TMP_Text _resourcesText;
         [SerializeField] private SupplyCenter _mainBase;
 
