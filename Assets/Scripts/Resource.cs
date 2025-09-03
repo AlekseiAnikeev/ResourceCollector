@@ -1,17 +1,53 @@
+using System;
 using UnityEngine;
 
-public class Resource : MonoBehaviour
+[RequireComponent(typeof(Rigidbody))]
+public class Resource : MonoBehaviour, ITrackable<Resource>
 {
-    public bool IsCollected { get; private set; }
+    public event Action<Resource> ReturnedToBase;
+    public event Action<Resource> Collected;
+    public bool IsCollected
+    {
+        get => _isCollected;
+        private set
+        {
+            if (_isCollected == value) 
+                return;
+
+            _isCollected = value;
+
+            if (_isCollected && IsTargeted)
+                Collected?.Invoke(this);
+        }
+    }
+
     public bool IsTargeted { get; private set; }
 
-    public void MarkAsTargeted() => IsTargeted = true;
+    private Rigidbody _rigidbody;
 
-    public void FullReset()
+    private bool _isCollected;
+
+    private void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+        _rigidbody.isKinematic = true;
+    }
+
+    public void MarkAsTargeted() => IsTargeted = true;
+    public void MarkAsCollected() => IsCollected = true;
+
+    public void ResetState()
     {
         IsCollected = false;
         IsTargeted = false;
         transform.SetParent(null);
-        transform.position = Vector3.zero;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent<SupplyCenter>(out _))
+        {
+            ReturnedToBase?.Invoke(this);
+        }
     }
 }

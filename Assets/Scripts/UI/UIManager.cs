@@ -10,15 +10,15 @@ namespace UI
 
         private void OnEnable()
         {
-            _mainBase.OnResourcesChanged += UpdateResourcesUI;
+            _mainBase.ResourcesCountChanged += UpdateResourcesCountUI;
         }
 
         private void OnDisable()
         {
-            _mainBase.OnResourcesChanged -= UpdateResourcesUI;
+            _mainBase.ResourcesCountChanged -= UpdateResourcesCountUI;
         }
 
-        private void UpdateResourcesUI(int amount)
+        private void UpdateResourcesCountUI(int amount)
         {
             _resourcesText.text = $"Кристалов: {amount}";
         }

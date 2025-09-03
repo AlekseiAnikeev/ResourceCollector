@@ -1085,6 +1085,11 @@ GameObject:
   - component: {fileID: 8149398181686134021}
   - component: {fileID: 6371620252229787045}
   - component: {fileID: 3970401118807733306}
+  - component: {fileID: -7234840993724888203}
+  - component: {fileID: -3920883144288309359}
+  - component: {fileID: 7649027370537693282}
+  - component: {fileID: 5770289999048114551}
+  - component: {fileID: 4284361151457028819}
   m_Layer: 0
   m_Name: Harvester
   m_TagString: Untagged
@@ -1148,11 +1153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _collectionDistance: 0.5
   _collectionDelay: 2
-  _collectingParticles: {fileID: 2355850340521853420}
-  _pathRenderer: {fileID: 8149398181686134021}
-  _progressBar: {fileID: 6637038490379872709}
-  _animator: {fileID: 7799825230033824676}
-  _collectSound: {fileID: 8300000, guid: 9354d9186cd373140a9f2f66e89e98fc, type: 3}
+  _heightResourcePinning: 2
 --- !u!120 &8149398181686134021
 LineRenderer:
   serializedVersion: 2
@@ -1306,12 +1307,91 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.31961885, y: 1.7459161, z: 0.4102787}
-  m_Center: {x: -0.006720815, y: 0.9358176, z: 0.039329976}
+  m_Size: {x: 1.1441317, y: 1.7459161, z: 1.450954}
+  m_Center: {x: -0.022728182, y: 0.9358176, z: 0.21302888}
+--- !u!114 &-7234840993724888203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3572893548817034084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2498c6605e7a49141b1feb2d313a4a8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 7799825230033824676}
+--- !u!114 &-3920883144288309359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3572893548817034084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a9e88efd2871b479554d70983b3ae6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collectParticles: {fileID: 2355850340521853420}
+  _collectSoundClip: {fileID: 8300000, guid: 9354d9186cd373140a9f2f66e89e98fc, type: 3}
+--- !u!114 &7649027370537693282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3572893548817034084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b5e2970e27340a4f9fd5045021d4234, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5770289999048114551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3572893548817034084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 289c3fbc52a284b46875638f35ded577, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _progressBar: {fileID: 6637038490379872709}
+--- !u!54 &4284361151457028819
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3572893548817034084}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &3625712770007681087
 GameObject:
   m_ObjectHideFlags: 0
@@ -7151,8 +7231,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500edea42fa3b3948973c5f9740526be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _positionOffset: {x: 0, y: 1, z: 0}
   _target: {fileID: 4242011982254207454}
+  _positionOffset: {x: 0, y: 1, z: 0}
 --- !u!1 &6490610160762115409
 GameObject:
   m_ObjectHideFlags: 0

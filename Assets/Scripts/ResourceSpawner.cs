@@ -1,53 +1,45 @@
+using System.Collections;
 using UnityEngine;
-using System.Collections.Generic;
 
-public class ResourceSpawner : MonoBehaviour
+public class ResourceSpawner : Spawner<Resource>
 {
-    [SerializeField] private Resource _resourcePrefab;
-    [SerializeField] private float _spawnRadius = 50f;
-    [SerializeField] private float _spawnInterval = 10f;
-    [SerializeField] private int _poolSize = 20;
+    [Range(0f, 10f)] [SerializeField] private float _spawnInterval = 2f;
+    [Range(0f, 10f)] [SerializeField] private float _spawnRadius = 5f;
 
-    private readonly Queue<Resource> _resourcePool = new();
-    private readonly List<Resource> _activeResources = new();
+    private Coroutine _coroutine;
 
-    private void Start()
+    protected void Start()
     {
-        InitializePool();
-        InvokeRepeating(nameof(SpawnResource), 0f, _spawnInterval);
+        _coroutine = StartCoroutine(SpawnRoutine());
+    }
+    private new Resource Get()
+    {
+        Resource r = base.Get();
+        r.ReturnedToBase += RemoveToPool;
+        return r;
     }
 
-    public List<Resource> GetActiveResources() => _activeResources;
-
-    public void ReturnResource(Resource resource)
+    protected override Resource CreateObject()
     {
-        if (!_activeResources.Contains(resource)) return;
-        resource.FullReset();
+        Resource resource = Instantiate(_prefab);
         resource.gameObject.SetActive(false);
-        _activeResources.Remove(resource);
-        _resourcePool.Enqueue(resource);
+        return resource;
     }
 
-    private void InitializePool()
+    private IEnumerator SpawnRoutine()
     {
-        for (var i = 0; i < _poolSize; i++)
+        var wait = new WaitForSeconds(_spawnInterval);
+        while (enabled)
         {
-            var obj = Instantiate(_resourcePrefab, Vector3.zero, Quaternion.identity);
-            var resource = obj.GetComponent<Resource>();
-            obj.gameObject.SetActive(false);
-            _resourcePool.Enqueue(resource);
+            Spawn();
+            yield return wait;
         }
     }
 
-    private void SpawnResource()
+    private void Spawn()
     {
-        if (_resourcePool.Count == 0) return;
-
-        Resource resource = _resourcePool.Dequeue();
-        resource.FullReset();
-        resource.transform.position = GetRandomPosition();
-        resource.gameObject.SetActive(true);
-        _activeResources.Add(resource);
+        Resource r = Get();
+        r.transform.position = GetRandomPosition();
     }
 
     private Vector3 GetRandomPosition()
@@ -55,5 +47,12 @@ public class ResourceSpawner : MonoBehaviour
         Vector3 pos = transform.position + Random.insideUnitSphere * _spawnRadius;
         pos.y = 0;
         return pos;
+    }
+
+    private void RemoveToPool(Resource resource)
+    {
+        resource.ReturnedToBase -= RemoveToPool;
+        resource.ResetState();
+        Release(resource);
     }
 }

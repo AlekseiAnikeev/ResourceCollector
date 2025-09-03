@@ -1,92 +1,93 @@
 using System;
-using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
-using Random = UnityEngine.Random;
+using ResourceCollector;
+using UnityEngine;
 
 public class SupplyCenter : MonoBehaviour
 {
-    [Range(0, 10)] [SerializeField] private int _initialUnits = 3;
-    [Range(0f, 20f)] [SerializeField] private float _scanInterval = 5f;
-    [Range(0f, 20f)] [SerializeField] private float _spawnRadius = 3f;
-
-    [SerializeField] private Harvester _unitPrefab;
-    [SerializeField] private ResourceSpawner _resourceSpawner;
+    [Range(0f, 10f)] [SerializeField] private float _resourceScanInterval = 5f;
 
     [SerializeField] private AudioClip _deliverySound;
     [SerializeField] private ParticleSystem _deliveryParticles;
 
-    public event Action<int> OnResourcesChanged;
+    private ResourceTracker _resourceTracker;
+    private HarvesterTracker _harvesterTracker;
 
-    private readonly List<Harvester> _allUnits = new();
-    private Coroutine _scanCoroutine;
-    private int _availableResources;
+    public event Action<int> ResourcesCountChanged;
+
+    private Coroutine _scanningCoroutine;
+    private WaitForSeconds _scanDelay;
+    private int _storedResources;
+
+    private void Awake()
+    {
+        _resourceTracker = GetComponentInChildren<ResourceTracker>();
+        _harvesterTracker = GetComponentInChildren<HarvesterTracker>();
+
+        _scanDelay = new WaitForSeconds(_resourceScanInterval);
+    }
 
     private void Start()
     {
-        Initialize();
+        if (_scanningCoroutine != null)
+            StopCoroutine(_scanningCoroutine);
 
-        if (_scanCoroutine != null)
-            StopCoroutine(_scanCoroutine);
+        _scanningCoroutine = StartCoroutine(ScanResourcesCoroutine());
+    }
 
-        _scanCoroutine = StartCoroutine(ScanRoutine());
+    private void OnEnable()
+    {
+        _harvesterTracker.OnObjectAdded += HarvesterAdded;
+    }
+
+    private void OnDisable()
+    {
+        _harvesterTracker.OnObjectAdded -= HarvesterAdded;
     }
 
     private void OnDestroy()
     {
-        if (_scanCoroutine != null)
-            StopCoroutine(_scanCoroutine);
-
-        foreach (var unit in _allUnits) unit.OnResourceDelivered -= HandleResourceDelivery;
+        if (_scanningCoroutine != null)
+            StopCoroutine(_scanningCoroutine);
     }
 
-    private void Initialize()
+    private void HarvesterAdded(Harvester harvester)
     {
-        for (var i = 0; i < _initialUnits; i++) SpawnUnit();
+        harvester.OnResourceDelivered += ResourceDelivered;
     }
 
-    private IEnumerator ScanRoutine()
+    private void ResourceDelivered(Resource resource)
+    {
+        _storedResources++;
+        ResourcesCountChanged?.Invoke(_storedResources);
+
+        if (_deliverySound != null)
+            AudioSource.PlayClipAtPoint(_deliverySound, transform.position);
+
+        _deliveryParticles?.Play();
+    }
+
+    private IEnumerator ScanResourcesCoroutine()
     {
         while (true)
         {
-            yield return new WaitForSeconds(_scanInterval);
-            ScanForResources();
+            yield return _scanDelay;
+            AssignAvailableResources();
         }
     }
 
-    private void HandleResourceDelivery(Resource resource)
+    private void AssignAvailableResources()
     {
-        _availableResources++;
-        OnResourcesChanged?.Invoke(_availableResources);
-        AudioSource.PlayClipAtPoint(_deliverySound, transform.position);
-        _deliveryParticles?.Play();
-        _resourceSpawner.ReturnResource(resource);
-    }
-
-    private void SpawnUnit()
-    {
-        Vector3 spawnPos = transform.position + Random.insideUnitSphere * _spawnRadius;
-        spawnPos.y = 0;
-
-        Harvester unit = Instantiate(_unitPrefab, spawnPos, Quaternion.identity).GetComponent<Harvester>();
-        unit.Init(this);
-
-        unit.OnResourceDelivered += HandleResourceDelivery;
-
-        _allUnits.Add(unit);
-    }
-
-    private void ScanForResources()
-    {
-        foreach (var resource in _resourceSpawner.GetActiveResources())
+        foreach (var resource in _resourceTracker.GetActiveObjects())
         {
             if (resource.IsCollected || resource.IsTargeted)
                 continue;
 
-            var freeUnit = _allUnits.Find(u => u.IsAvailable);
-            if (freeUnit == null)
+            Harvester freeHarvester = _harvesterTracker.GetFreeHarvester();
+            if (freeHarvester == null)
                 break;
-            freeUnit.AssignResource(resource);
+
+            freeHarvester.Collect(resource);
         }
     }
 }
