@@ -5,31 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99b995b4-79f1-408e-ab91-d716e547d5f0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ResourceCollector/.idea/projectSettingsUpdater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ResourceCollector/.idea/projectSettingsUpdater.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ResourceCollector/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ResourceCollector/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animation/Harvester.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/Harvester.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/BrokenVector/LowPolyTreePack/Materials/Normal.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BrokenVector/LowPolyTreePack/Materials/Normal.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/New Terrain.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/New Terrain.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Crystal 2.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Crystal 2.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Crystal.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/Crystal.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Harvester.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/Harvester.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Spawner.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/Spawner.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/SupplyCenter.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/SupplyCenter.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Harvester.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Harvester.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Camera/CameraControl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Camera/CameraControl.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/HarvesterSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HarvesterSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/HarvesterTracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HarvesterTracker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ITrackable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ITrackable.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Resource.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Resource.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Resource2.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Resource2.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ResourceSpawner.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ResourceSpawner.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ResourceCollector/Harvester.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ResourceCollector/Harvester.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ResourceSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ResourceSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ResourceTracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ResourceTracker.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Spawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Spawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Spawner.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Spawner.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/SupplyCenter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SupplyCenter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/UIManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/NavMeshAreas.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/NavMeshAreas.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Tracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Tracker.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -205,6 +193,7 @@
       <workItem from="1756756390428" duration="45000" />
       <workItem from="1756756464009" duration="10520000" />
       <workItem from="1756922994399" duration="14419000" />
+      <workItem from="1757193944286" duration="4000000" />
     </task>
     <servers />
   </component>

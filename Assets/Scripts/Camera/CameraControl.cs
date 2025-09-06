@@ -12,8 +12,8 @@ namespace Camera
 
         [SerializeField] private Transform _cameraTransform;
 
-        [SerializeField] private bool _moveWithKeyboad;
-        [SerializeField] private bool _moveWithEdgeScrolling;
+        [SerializeField] private bool _moveWidthKeyboad;
+        [SerializeField] private bool _moveWidthEdgeScrolling;
 
 
         [Range(0, 1f)] [SerializeField] private float _fastSpeed = 0.05f;
@@ -60,7 +60,7 @@ namespace Camera
 
         private void HandleCameraMovement()
         {
-            if (_moveWithKeyboad)
+            if (_moveWidthKeyboad)
             {
                 _movementSpeed = _speedModifierAction.IsPressed() ? _fastSpeed : _normalSpeed;
 
@@ -70,7 +70,7 @@ namespace Camera
                 _newPosition += transform.right * (_movementSpeed * moveInput.x);
             }
 
-            if (_moveWithEdgeScrolling)
+            if (_moveWidthEdgeScrolling)
             {
                 Vector2 mousePos = Mouse.current.position.ReadValue();
 

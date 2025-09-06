@@ -4,45 +4,39 @@ using UnityEngine;
 
 public abstract class Tracker<T> : MonoBehaviour where T : MonoBehaviour, ITrackable<T>
 {
-    [SerializeField] private float _radius = 15f;
-    [SerializeField] private float _updateInterval = 0.2f;
+    private readonly List<T> _trackedObjects = new();
 
-    private readonly List<T> _objects = new();
+    public List<T> GetActiveObjects() => new(_trackedObjects);
     public event Action<T> OnObjectAdded;
-    private float _timer;
-    public List<T> GetActiveObjects() => new (_objects);
 
-    protected virtual void Register(T obj)
+    protected virtual void RegisterTrackableObject(T obj)
     {
-        if (_objects.Contains(obj)) 
+        if (_trackedObjects.Contains(obj))
             return;
-        _objects.Add(obj);
-        obj.Collected += Unregister;
+
+        _trackedObjects.Add(obj);
+
+        obj.OnCollected += UnregisterTrackableObject;
         OnObjectAdded?.Invoke(obj);
     }
 
-    private void Unregister(T obj)
+    private void UnregisterTrackableObject(T obj)
     {
-        if (_objects.Remove(obj))
-        {
-            obj.Collected -= Unregister;
-        }
+        if (_trackedObjects.Remove(obj))
+            obj.OnCollected -= UnregisterTrackableObject;
     }
-    
+
     protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out T obj))
-        {
-            Register(obj);
-        }
+            RegisterTrackableObject(obj);
     }
 
     protected virtual void OnDisable()
     {
-        foreach (var obj in _objects)
-        {
-            obj.Collected -= Unregister;
-        }
-        _objects.Clear();
+        foreach (var obj in _trackedObjects)
+            obj.OnCollected -= UnregisterTrackableObject;
+
+        _trackedObjects.Clear();
     }
 }

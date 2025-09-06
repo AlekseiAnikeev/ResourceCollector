@@ -3,20 +3,17 @@ using UnityEngine;
 
 public class HarvesterSpawner : Spawner<Harvester>
 {
-    [SerializeField] private int _initialCount = 3;
-    [SerializeField] private float _spawnRadius = 3f;
+    [Range(0f, 15f)] [SerializeField] private int _initialCount = 3;
 
     private void Start()
     {
         for (int i = 0; i < _initialCount; i++)
         {
-            Harvester h = Get();
-            Vector3 pos = transform.position + Random.insideUnitSphere * _spawnRadius;
-            pos.y = 0;
-            h.transform.position = pos;
+            Harvester harvester = Spawn();
+            harvester.transform.position = GetSpawnPosition();
         }
     }
-    
+
     protected override Harvester CreateObject()
     {
         Harvester harvester = Instantiate(_prefab, transform);

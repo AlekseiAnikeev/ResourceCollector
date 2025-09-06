@@ -3,17 +3,17 @@ using ResourceCollector;
 
 public class HarvesterTracker : Tracker<Harvester>
 {
-    private SupplyCenter _center;
+    private SupplyCenter _supplyCenter;
     
     private void Awake()
     {
-        _center = GetComponentInParent<SupplyCenter>();
+        _supplyCenter = GetComponentInParent<SupplyCenter>();
     }
 
-    protected override void Register(Harvester obj)
+    protected override void RegisterTrackableObject(Harvester obj)
     {
-        obj.Init(_center);
-        base.Register(obj);
+        obj.Init(_supplyCenter);
+        base.RegisterTrackableObject(obj);
     }
     public Harvester GetFreeHarvester()
     {

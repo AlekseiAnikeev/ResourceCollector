@@ -84,6 +84,7 @@ public class SupplyCenter : MonoBehaviour
                 continue;
 
             Harvester freeHarvester = _harvesterTracker.GetFreeHarvester();
+            
             if (freeHarvester == null)
                 break;
 

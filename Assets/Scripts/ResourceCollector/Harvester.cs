@@ -15,7 +15,7 @@ namespace ResourceCollector
         public event Action OnCollectComplete;
         public event Action OnIdle;
         public event Action<Resource> OnResourceDelivered;
-        public event Action<Harvester> Collected;
+        public event Action<Harvester> OnCollected;
 
         [SerializeField] private float _collectionDistance = 0.5f;
         [SerializeField] private float _collectionDelay = 2f;
@@ -47,7 +47,7 @@ namespace ResourceCollector
 
             IsAvailable = false;
             _targetResource = resource;
-            _targetResource.MarkAsTargeted();
+            _targetResource.SetTargeted();
 
             _agent.SetDestination(_targetResource.transform.position);
             OnMoveStart?.Invoke();
@@ -113,7 +113,7 @@ namespace ResourceCollector
                 yield break;
             }
 
-            _targetResource.MarkAsCollected();
+            _targetResource.SetCollected();
             _targetResource.transform.SetParent(_carryPoint);
             _targetResource.transform.localPosition = Vector3.up * _heightResourcePinning;
 

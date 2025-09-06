@@ -4,27 +4,27 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Resource : MonoBehaviour, ITrackable<Resource>
 {
-    public event Action<Resource> ReturnedToBase;
-    public event Action<Resource> Collected;
+    public event Action<Resource> OnReturnedToBase;
+    public event Action<Resource> OnCollected;
+
     public bool IsCollected
     {
         get => _isCollected;
         private set
         {
-            if (_isCollected == value) 
+            if (_isCollected == value)
                 return;
 
             _isCollected = value;
 
             if (_isCollected && IsTargeted)
-                Collected?.Invoke(this);
+                OnCollected?.Invoke(this);
         }
     }
 
     public bool IsTargeted { get; private set; }
 
     private Rigidbody _rigidbody;
-
     private bool _isCollected;
 
     private void Awake()
@@ -33,8 +33,9 @@ public class Resource : MonoBehaviour, ITrackable<Resource>
         _rigidbody.isKinematic = true;
     }
 
-    public void MarkAsTargeted() => IsTargeted = true;
-    public void MarkAsCollected() => IsCollected = true;
+    public void SetTargeted() => IsTargeted = true;
+
+    public void SetCollected() => IsCollected = true;
 
     public void ResetState()
     {
@@ -47,7 +48,7 @@ public class Resource : MonoBehaviour, ITrackable<Resource>
     {
         if (other.TryGetComponent<SupplyCenter>(out _))
         {
-            ReturnedToBase?.Invoke(this);
+            OnReturnedToBase?.Invoke(this);
         }
     }
 }

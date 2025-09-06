@@ -4,8 +4,9 @@ using UnityEngine.Pool;
 public abstract class Spawner<T> : MonoBehaviour where T : MonoBehaviour
 {
     [SerializeField] protected T _prefab;
-    [SerializeField] protected int _poolCapacity = 5;
-    [SerializeField] protected int _poolMaxSize = 20;
+    [Range(0f, 10f)] [SerializeField] protected float _spawnRadius = 5f;
+    [Range(0f, 20f)] [SerializeField] protected int _poolCapacity = 5;
+    [Range(0f, 50f)] [SerializeField] protected int _poolMaxSize = 20;
 
     private ObjectPool<T> _pool;
 
@@ -24,7 +25,14 @@ public abstract class Spawner<T> : MonoBehaviour where T : MonoBehaviour
 
     protected abstract T CreateObject();
 
-    protected virtual T Get() => _pool.Get();
+    protected virtual T Spawn() => _pool.Get();
 
-    protected virtual void Release(T obj) => _pool.Release(obj);
+    protected void Release(T obj) => _pool.Release(obj);
+
+    protected Vector3 GetSpawnPosition()
+    {
+        Vector3 pos = transform.position + Random.insideUnitSphere * _spawnRadius;
+        pos.y = 0;
+        return pos;
+    }
 }

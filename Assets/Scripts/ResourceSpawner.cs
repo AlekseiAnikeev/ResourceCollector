@@ -4,19 +4,21 @@ using UnityEngine;
 public class ResourceSpawner : Spawner<Resource>
 {
     [Range(0f, 10f)] [SerializeField] private float _spawnInterval = 2f;
-    [Range(0f, 10f)] [SerializeField] private float _spawnRadius = 5f;
-
-    private Coroutine _coroutine;
+    
+    private Coroutine _spawnCoroutine;
 
     protected void Start()
     {
-        _coroutine = StartCoroutine(SpawnRoutine());
+        if (_spawnCoroutine != null)
+            StopCoroutine(_spawnCoroutine);
+        
+        _spawnCoroutine = StartCoroutine(SpawnCoroutine());
     }
-    private new Resource Get()
+
+    private void OnDestroy()
     {
-        Resource r = base.Get();
-        r.ReturnedToBase += RemoveToPool;
-        return r;
+        if (_spawnCoroutine != null)
+            StopCoroutine(_spawnCoroutine);
     }
 
     protected override Resource CreateObject()
@@ -26,7 +28,15 @@ public class ResourceSpawner : Spawner<Resource>
         return resource;
     }
 
-    private IEnumerator SpawnRoutine()
+    protected override Resource Spawn()
+    {
+        Resource resource = base.Spawn();
+        resource.OnReturnedToBase += ReturnToPool;
+        resource.transform.position = GetSpawnPosition();
+        return resource;
+    }
+
+    private IEnumerator SpawnCoroutine()
     {
         var wait = new WaitForSeconds(_spawnInterval);
         while (enabled)
@@ -36,22 +46,9 @@ public class ResourceSpawner : Spawner<Resource>
         }
     }
 
-    private void Spawn()
+    private void ReturnToPool(Resource resource)
     {
-        Resource r = Get();
-        r.transform.position = GetRandomPosition();
-    }
-
-    private Vector3 GetRandomPosition()
-    {
-        Vector3 pos = transform.position + Random.insideUnitSphere * _spawnRadius;
-        pos.y = 0;
-        return pos;
-    }
-
-    private void RemoveToPool(Resource resource)
-    {
-        resource.ReturnedToBase -= RemoveToPool;
+        resource.OnReturnedToBase -= ReturnToPool;
         resource.ResetState();
         Release(resource);
     }
