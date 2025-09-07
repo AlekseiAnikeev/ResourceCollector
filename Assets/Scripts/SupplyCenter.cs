@@ -10,11 +10,11 @@ public class SupplyCenter : MonoBehaviour
     [SerializeField] private ParticleSystem _deliveryParticles;
     [SerializeField] private ResourceTracker _resourceTracker;
     [SerializeField] private HarvesterTracker _harvesterTracker;
-    
+
     private Coroutine _scanningCoroutine;
     private WaitForSeconds _scanDelay;
     private int _storedResources;
-    
+
     public event Action<int> ResourcesCountChanged;
 
     private void Awake()
@@ -56,6 +56,9 @@ public class SupplyCenter : MonoBehaviour
         _storedResources++;
         ResourcesCountChanged?.Invoke(_storedResources);
 
+        resource.ResetState();
+        _resourceTracker.Release(resource);
+
         if (_deliverySound != null)
             AudioSource.PlayClipAtPoint(_deliverySound, transform.position);
 
@@ -73,17 +76,17 @@ public class SupplyCenter : MonoBehaviour
 
     private void AssignAvailableResources()
     {
-        foreach (var resource in _resourceTracker.GetActiveObjects())
+        foreach (var resource in _resourceTracker.GetAvailableObjects())
         {
-            if (resource.IsCollected || resource.IsTargeted)
-                continue;
-
             Harvester freeHarvester = _harvesterTracker.GetFreeHarvester();
-            
+
             if (freeHarvester == null)
                 break;
 
-            freeHarvester.Collect(resource);
+            if (_resourceTracker.TrySetIsTarget(resource))
+            {
+                freeHarvester.Collect(resource);
+            }
         }
     }
 }

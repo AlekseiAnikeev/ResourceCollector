@@ -5,27 +5,9 @@ using UnityEngine;
 public class Resource : MonoBehaviour, ITrackable<Resource>
 {
     private Rigidbody _rigidbody;
-    private bool _isCollected;
-    
+
     public event Action<Resource> ReturnedToBase;
     public event Action<Resource> Collected;
-    
-    public bool IsCollected
-    {
-        get => _isCollected;
-        private set
-        {
-            if (_isCollected == value)
-                return;
-
-            _isCollected = value;
-
-            if (_isCollected && IsTargeted)
-                Collected?.Invoke(this);
-        }
-    }
-
-    public bool IsTargeted { get; private set; }
 
     private void Awake()
     {
@@ -41,16 +23,13 @@ public class Resource : MonoBehaviour, ITrackable<Resource>
         }
     }
 
-    public void SetTargeted() =>
-        IsTargeted = true;
-
-    public void SetCollected() => 
-        IsCollected = true;
+    public void SetCollected()
+    {
+        Collected?.Invoke(this);
+    }
 
     public void ResetState()
     {
-        IsCollected = false;
-        IsTargeted = false;
         transform.SetParent(null);
     }
 }

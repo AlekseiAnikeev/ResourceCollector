@@ -47,7 +47,6 @@ namespace ResourceCollector
 
             IsAvailable = false;
             _targetResource = resource;
-            _targetResource.SetTargeted();
 
             _agent.SetDestination(_targetResource.transform.position);
             MoveStarting?.Invoke();
@@ -96,7 +95,7 @@ namespace ResourceCollector
             float timer = 0f;
             while (timer < _collectionDelay)
             {
-                if (_targetResource == null || _targetResource.IsCollected)
+                if (_targetResource == null)
                     yield break;
 
                 CollectingProgress?.Invoke(timer / _collectionDelay);
@@ -107,7 +106,7 @@ namespace ResourceCollector
             CollectingProgress?.Invoke(1f);
             _agent.isStopped = false;
 
-            if (_targetResource == null || _targetResource.IsCollected)
+            if (_targetResource == null)
             {
                 ResetState();
                 yield break;
