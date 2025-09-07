@@ -4,9 +4,12 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Resource : MonoBehaviour, ITrackable<Resource>
 {
-    public event Action<Resource> OnReturnedToBase;
-    public event Action<Resource> OnCollected;
-
+    private Rigidbody _rigidbody;
+    private bool _isCollected;
+    
+    public event Action<Resource> ReturnedToBase;
+    public event Action<Resource> Collected;
+    
     public bool IsCollected
     {
         get => _isCollected;
@@ -18,14 +21,11 @@ public class Resource : MonoBehaviour, ITrackable<Resource>
             _isCollected = value;
 
             if (_isCollected && IsTargeted)
-                OnCollected?.Invoke(this);
+                Collected?.Invoke(this);
         }
     }
 
     public bool IsTargeted { get; private set; }
-
-    private Rigidbody _rigidbody;
-    private bool _isCollected;
 
     private void Awake()
     {
@@ -33,22 +33,24 @@ public class Resource : MonoBehaviour, ITrackable<Resource>
         _rigidbody.isKinematic = true;
     }
 
-    public void SetTargeted() => IsTargeted = true;
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent<SupplyCenter>(out _))
+        {
+            ReturnedToBase?.Invoke(this);
+        }
+    }
 
-    public void SetCollected() => IsCollected = true;
+    public void SetTargeted() =>
+        IsTargeted = true;
+
+    public void SetCollected() => 
+        IsCollected = true;
 
     public void ResetState()
     {
         IsCollected = false;
         IsTargeted = false;
         transform.SetParent(null);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.TryGetComponent<SupplyCenter>(out _))
-        {
-            OnReturnedToBase?.Invoke(this);
-        }
     }
 }

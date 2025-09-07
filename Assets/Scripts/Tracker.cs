@@ -6,25 +6,9 @@ public abstract class Tracker<T> : MonoBehaviour where T : MonoBehaviour, ITrack
 {
     private readonly List<T> _trackedObjects = new();
 
+    public event Action<T> ObjectAdded;
+    
     public List<T> GetActiveObjects() => new(_trackedObjects);
-    public event Action<T> OnObjectAdded;
-
-    protected virtual void RegisterTrackableObject(T obj)
-    {
-        if (_trackedObjects.Contains(obj))
-            return;
-
-        _trackedObjects.Add(obj);
-
-        obj.OnCollected += UnregisterTrackableObject;
-        OnObjectAdded?.Invoke(obj);
-    }
-
-    private void UnregisterTrackableObject(T obj)
-    {
-        if (_trackedObjects.Remove(obj))
-            obj.OnCollected -= UnregisterTrackableObject;
-    }
 
     protected virtual void OnTriggerEnter(Collider other)
     {
@@ -35,8 +19,25 @@ public abstract class Tracker<T> : MonoBehaviour where T : MonoBehaviour, ITrack
     protected virtual void OnDisable()
     {
         foreach (var obj in _trackedObjects)
-            obj.OnCollected -= UnregisterTrackableObject;
+            obj.Collected -= UnregisterTrackableObject;
 
         _trackedObjects.Clear();
+    }
+
+    protected virtual void RegisterTrackableObject(T obj)
+    {
+        if (_trackedObjects.Contains(obj))
+            return;
+
+        _trackedObjects.Add(obj);
+
+        obj.Collected += UnregisterTrackableObject;
+        ObjectAdded?.Invoke(obj);
+    }
+
+    private void UnregisterTrackableObject(T obj)
+    {
+        if (_trackedObjects.Remove(obj))
+            obj.Collected -= UnregisterTrackableObject;
     }
 }

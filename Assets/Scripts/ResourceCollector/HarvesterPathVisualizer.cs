@@ -33,22 +33,22 @@ namespace ResourceCollector
 
         protected override void RegisterEvents()
         {
-            Harvester.OnMoveStart += EnablePath;
-            Harvester.OnMoveStop += DisablePath;
+            Harvester.MoveStarting += OnMoveStarting;
+            Harvester.MoveStopped += OnMoveStopped;
         }
 
         protected override void UnregisterEvents()
         {
-            Harvester.OnMoveStart -= EnablePath;
-            Harvester.OnMoveStop -= DisablePath;
+            Harvester.MoveStarting -= OnMoveStarting;
+            Harvester.MoveStopped -= OnMoveStopped;
         }
 
-        private void EnablePath()
+        private void OnMoveStarting()
         {
             _isActive = true;
         }
 
-        private void DisablePath()
+        private void OnMoveStopped()
         {
             _isActive = false;
             _lineRenderer.positionCount = 0;

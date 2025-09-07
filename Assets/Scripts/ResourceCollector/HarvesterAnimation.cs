@@ -19,24 +19,24 @@ namespace ResourceCollector
 
         protected override void RegisterEvents()
         {
-            Harvester.OnMoveStart += PlayMoveAnimation;
-            Harvester.OnMoveStop += StopMoveAnimation;
-            Harvester.OnCollectStart += PlayCollectAnimation;
-            Harvester.OnCollectComplete += StopCollectAnimation;
+            Harvester.MoveStarting += OnMoveStarting;
+            Harvester.MoveStopped += OnMoveStopped;
+            Harvester.CollectStarting += OnCollectStarting;
+            Harvester.CollectCompleted += OnCollectCompleted;
         }
 
         protected override void UnregisterEvents()
         {
-            Harvester.OnMoveStart -= PlayMoveAnimation;
-            Harvester.OnMoveStop -= StopMoveAnimation;
-            Harvester.OnCollectStart -= PlayCollectAnimation;
-            Harvester.OnCollectComplete -= StopCollectAnimation;
+            Harvester.MoveStarting -= OnMoveStarting;
+            Harvester.MoveStopped -= OnMoveStopped;
+            Harvester.CollectStarting -= OnCollectStarting;
+            Harvester.CollectCompleted -= OnCollectCompleted;
         }
 
-        private void PlayMoveAnimation() => SetAnimatorBool(IsRunning, true);
-        private void StopMoveAnimation() => SetAnimatorBool(IsRunning, false);
-        private void PlayCollectAnimation() => SetAnimatorBool(IsCollecting, true);
-        private void StopCollectAnimation() => SetAnimatorBool(IsCollecting, false);
+        private void OnMoveStarting() => SetAnimatorBool(IsRunning, true);
+        private void OnMoveStopped() => SetAnimatorBool(IsRunning, false);
+        private void OnCollectStarting() => SetAnimatorBool(IsCollecting, true);
+        private void OnCollectCompleted() => SetAnimatorBool(IsCollecting, false);
 
         private void SetAnimatorBool(string parameterName, bool value)
         {

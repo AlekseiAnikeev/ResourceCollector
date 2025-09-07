@@ -31,7 +31,7 @@ public class ResourceSpawner : Spawner<Resource>
     protected override Resource Spawn()
     {
         Resource resource = base.Spawn();
-        resource.OnReturnedToBase += ReturnToPool;
+        resource.ReturnedToBase += OnReturnedToBase;
         resource.transform.position = GetSpawnPosition();
         return resource;
     }
@@ -46,9 +46,9 @@ public class ResourceSpawner : Spawner<Resource>
         }
     }
 
-    private void ReturnToPool(Resource resource)
+    private void OnReturnedToBase(Resource resource)
     {
-        resource.OnReturnedToBase -= ReturnToPool;
+        resource.ReturnedToBase -= OnReturnedToBase;
         resource.ResetState();
         Release(resource);
     }

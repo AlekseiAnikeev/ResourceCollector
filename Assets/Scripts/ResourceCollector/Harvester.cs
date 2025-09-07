@@ -8,15 +8,6 @@ namespace ResourceCollector
     [RequireComponent(typeof(NavMeshAgent))]
     public class Harvester : MonoBehaviour, ITrackable<Harvester>
     {
-        public event Action OnMoveStart;
-        public event Action OnMoveStop;
-        public event Action OnCollectStart;
-        public event Action<float> OnCollectProgress;
-        public event Action OnCollectComplete;
-        public event Action OnIdle;
-        public event Action<Resource> OnResourceDelivered;
-        public event Action<Harvester> OnCollected;
-
         [SerializeField] private float _collectionDistance = 0.5f;
         [SerializeField] private float _collectionDelay = 2f;
         [SerializeField] private float _heightResourcePinning = 2f;
@@ -26,6 +17,15 @@ namespace ResourceCollector
         private Transform _carryPoint;
         private SupplyCenter _homeSupplyCenter;
         private Coroutine _harvestCoroutine;
+
+        public event Action MoveStarting;
+        public event Action MoveStopped;
+        public event Action CollectStarting;
+        public event Action<float> CollectingProgress;
+        public event Action CollectCompleted;
+        public event Action IdleStarted;
+        public event Action<Resource> ResourceDelivered;
+        public event Action<Harvester> Collected;
 
         public bool IsAvailable { get; private set; } = true;
 
@@ -50,7 +50,7 @@ namespace ResourceCollector
             _targetResource.SetTargeted();
 
             _agent.SetDestination(_targetResource.transform.position);
-            OnMoveStart?.Invoke();
+            MoveStarting?.Invoke();
 
             if (_harvestCoroutine != null)
             {
@@ -69,7 +69,7 @@ namespace ResourceCollector
             }
 
             IsAvailable = true;
-            OnIdle?.Invoke();
+            IdleStarted?.Invoke();
         }
 
         private IEnumerator Harvest()
@@ -87,8 +87,8 @@ namespace ResourceCollector
                 _collectionDistance * _collectionDistance);
 
             _agent.isStopped = true;
-            OnMoveStop?.Invoke();
-            OnCollectStart?.Invoke();
+            MoveStopped?.Invoke();
+            CollectStarting?.Invoke();
         }
 
         private IEnumerator CollectResource()
@@ -99,12 +99,12 @@ namespace ResourceCollector
                 if (_targetResource == null || _targetResource.IsCollected)
                     yield break;
 
-                OnCollectProgress?.Invoke(timer / _collectionDelay);
+                CollectingProgress?.Invoke(timer / _collectionDelay);
                 timer += Time.deltaTime;
                 yield return null;
             }
 
-            OnCollectProgress?.Invoke(1f);
+            CollectingProgress?.Invoke(1f);
             _agent.isStopped = false;
 
             if (_targetResource == null || _targetResource.IsCollected)
@@ -117,20 +117,20 @@ namespace ResourceCollector
             _targetResource.transform.SetParent(_carryPoint);
             _targetResource.transform.localPosition = Vector3.up * _heightResourcePinning;
 
-            OnCollectComplete?.Invoke();
+            CollectCompleted?.Invoke();
         }
 
         private IEnumerator ReturnToBase()
         {
             _agent.SetDestination(_homeSupplyCenter.transform.position);
-            OnMoveStart?.Invoke();
+            MoveStarting?.Invoke();
 
             yield return new WaitUntil(() =>
                 Vector3.SqrMagnitude(transform.position - _homeSupplyCenter.transform.position) <=
                 _collectionDistance * _collectionDistance);
 
-            OnMoveStop?.Invoke();
-            OnResourceDelivered?.Invoke(_targetResource);
+            MoveStopped?.Invoke();
+            ResourceDelivered?.Invoke(_targetResource);
         }
     }
 }

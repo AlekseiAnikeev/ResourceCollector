@@ -15,38 +15,38 @@ namespace ResourceCollector
 
         protected override void RegisterEvents()
         {
-            Harvester.OnCollectStart += ShowProgressStart;
-            Harvester.OnCollectProgress += UpdateProgress;
-            Harvester.OnCollectComplete += ShowProgressComplete;
-            Harvester.OnIdle += HideProgress;
+            Harvester.CollectStarting += OnCollectStarting;
+            Harvester.CollectingProgress += OnCollectingProgress;
+            Harvester.CollectCompleted += OnCollectCompleted;
+            Harvester.IdleStarted += OnIdleStarted;
         }
 
         protected override void UnregisterEvents()
         {
-            Harvester.OnCollectStart -= ShowProgressStart;
-            Harvester.OnCollectProgress -= UpdateProgress;
-            Harvester.OnCollectComplete -= ShowProgressComplete;
-            Harvester.OnIdle -= HideProgress;
+            Harvester.CollectStarting -= OnCollectStarting;
+            Harvester.CollectingProgress -= OnCollectingProgress;
+            Harvester.CollectCompleted -= OnCollectCompleted;
+            Harvester.IdleStarted -= OnIdleStarted;
         }
 
-        private void ShowProgressStart()
+        private void OnCollectStarting()
         {
             _progressBar?.Activate();
             _progressBar?.UpdateProgress(0f);
         }
 
-        private void UpdateProgress(float progress)
+        private void OnCollectingProgress(float progress)
         {
             _progressBar?.UpdateProgress(progress);
         }
 
-        private void ShowProgressComplete()
+        private void OnCollectCompleted()
         {
             _progressBar?.UpdateProgress(1f);
             _progressBar?.Deactivate();
         }
 
-        private void HideProgress()
+        private void OnIdleStarted()
         {
             _progressBar?.Deactivate();
         }

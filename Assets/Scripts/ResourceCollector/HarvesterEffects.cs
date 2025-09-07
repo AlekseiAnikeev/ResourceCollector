@@ -9,15 +9,15 @@ namespace ResourceCollector
         
         protected override void RegisterEvents()
         {
-            Harvester.OnCollectComplete += PlayCollectEffects;
+            Harvester.CollectCompleted += OnCollectCompleted;
         }
 
         protected override void UnregisterEvents()
         {
-            Harvester.OnCollectComplete -= PlayCollectEffects;
+            Harvester.CollectCompleted -= OnCollectCompleted;
         }
 
-        private void PlayCollectEffects()
+        private void OnCollectCompleted()
         {
             if (_collectParticles != null)
             {

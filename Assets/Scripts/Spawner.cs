@@ -25,14 +25,16 @@ public abstract class Spawner<T> : MonoBehaviour where T : MonoBehaviour
 
     protected abstract T CreateObject();
 
-    protected virtual T Spawn() => _pool.Get();
+    protected virtual T Spawn() => 
+        _pool.Get();
 
-    protected void Release(T obj) => _pool.Release(obj);
+    protected void Release(T obj) => 
+        _pool.Release(obj);
 
     protected Vector3 GetSpawnPosition()
     {
-        Vector3 pos = transform.position + Random.insideUnitSphere * _spawnRadius;
-        pos.y = 0;
-        return pos;
+        Vector3 newPosition = transform.position + Random.insideUnitSphere * _spawnRadius;
+        newPosition.y = 0;
+        return newPosition;
     }
 }

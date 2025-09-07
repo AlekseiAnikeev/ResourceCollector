@@ -7,17 +7,21 @@
     <list default="true" id="99b995b4-79f1-408e-ab91-d716e547d5f0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ResourceCollector/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ResourceCollector/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Camera/CameraControl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Camera/CameraControl.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/HarvesterSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HarvesterSpawner.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/HarvesterTracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/HarvesterTracker.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ITrackable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ITrackable.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Resource.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Resource.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ResourceCollector/Harvester.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ResourceCollector/Harvester.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ResourceCollector/HarvesterAnimation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ResourceCollector/HarvesterAnimation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ResourceCollector/HarvesterEffects.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ResourceCollector/HarvesterEffects.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ResourceCollector/HarvesterPathVisualizer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ResourceCollector/HarvesterPathVisualizer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ResourceCollector/HarvesterProgressUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ResourceCollector/HarvesterProgressUI.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ResourceSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ResourceSpawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ResourceTracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ResourceTracker.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Spawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Spawner.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/SupplyCenter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SupplyCenter.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Tracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Tracker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,6 +198,7 @@
       <workItem from="1756756464009" duration="10520000" />
       <workItem from="1756922994399" duration="14419000" />
       <workItem from="1757193944286" duration="4000000" />
+      <workItem from="1757249579751" duration="6904000" />
     </task>
     <servers />
   </component>

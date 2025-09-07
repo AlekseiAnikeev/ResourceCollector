@@ -6,24 +6,19 @@ using UnityEngine;
 public class SupplyCenter : MonoBehaviour
 {
     [Range(0f, 10f)] [SerializeField] private float _resourceScanInterval = 5f;
-
     [SerializeField] private AudioClip _deliverySound;
     [SerializeField] private ParticleSystem _deliveryParticles;
-
-    private ResourceTracker _resourceTracker;
-    private HarvesterTracker _harvesterTracker;
-
-    public event Action<int> ResourcesCountChanged;
-
+    [SerializeField] private ResourceTracker _resourceTracker;
+    [SerializeField] private HarvesterTracker _harvesterTracker;
+    
     private Coroutine _scanningCoroutine;
     private WaitForSeconds _scanDelay;
     private int _storedResources;
+    
+    public event Action<int> ResourcesCountChanged;
 
     private void Awake()
     {
-        _resourceTracker = GetComponentInChildren<ResourceTracker>();
-        _harvesterTracker = GetComponentInChildren<HarvesterTracker>();
-
         _scanDelay = new WaitForSeconds(_resourceScanInterval);
     }
 
@@ -37,12 +32,12 @@ public class SupplyCenter : MonoBehaviour
 
     private void OnEnable()
     {
-        _harvesterTracker.OnObjectAdded += HarvesterAdded;
+        _harvesterTracker.ObjectAdded += OnObjectAdded;
     }
 
     private void OnDisable()
     {
-        _harvesterTracker.OnObjectAdded -= HarvesterAdded;
+        _harvesterTracker.ObjectAdded -= OnObjectAdded;
     }
 
     private void OnDestroy()
@@ -51,12 +46,12 @@ public class SupplyCenter : MonoBehaviour
             StopCoroutine(_scanningCoroutine);
     }
 
-    private void HarvesterAdded(Harvester harvester)
+    private void OnObjectAdded(Harvester harvester)
     {
-        harvester.OnResourceDelivered += ResourceDelivered;
+        harvester.ResourceDelivered += OnResourceDelivered;
     }
 
-    private void ResourceDelivered(Resource resource)
+    private void OnResourceDelivered(Resource resource)
     {
         _storedResources++;
         ResourcesCountChanged?.Invoke(_storedResources);
