@@ -33,10 +33,17 @@ namespace ResourceCollector
             Harvester.CollectCompleted -= OnCollectCompleted;
         }
 
-        private void OnMoveStarting() => SetAnimatorBool(IsRunning, true);
-        private void OnMoveStopped() => SetAnimatorBool(IsRunning, false);
-        private void OnCollectStarting() => SetAnimatorBool(IsCollecting, true);
-        private void OnCollectCompleted() => SetAnimatorBool(IsCollecting, false);
+        private void OnMoveStarting() =>
+            SetAnimatorBool(IsRunning, true);
+
+        private void OnMoveStopped() =>
+            SetAnimatorBool(IsRunning, false);
+
+        private void OnCollectStarting() =>
+            SetAnimatorBool(IsCollecting, true);
+
+        private void OnCollectCompleted() =>
+            SetAnimatorBool(IsCollecting, false);
 
         private void SetAnimatorBool(string parameterName, bool value)
         {

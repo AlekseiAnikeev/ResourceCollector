@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99b995b4-79f1-408e-ab91-d716e547d5f0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ResourceCollector/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ResourceCollector/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Resource.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Resource.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ResourceCollector/Harvester.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ResourceCollector/Harvester.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ResourceDatabase.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ResourceDatabase.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ResourceTracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ResourceTracker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SupplyCenter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SupplyCenter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Tracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Tracker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ResourceCollector/HarvesterAnimation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ResourceCollector/HarvesterAnimation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ResourceCollector/HarvesterEffects.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ResourceCollector/HarvesterEffects.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,6 +187,7 @@
       <workItem from="1757257639945" duration="2776000" />
       <workItem from="1757267132242" duration="3173000" />
       <workItem from="1757270891755" duration="1572000" />
+      <workItem from="1757272883415" duration="263000" />
     </task>
     <servers />
   </component>
