@@ -112,7 +112,7 @@ namespace ResourceCollector
                 yield break;
             }
 
-            _targetResource.SetCollected();
+            _targetResource.Collect();
             _targetResource.transform.SetParent(_carryPoint);
             _targetResource.transform.localPosition = Vector3.up * _heightResourcePinning;
 

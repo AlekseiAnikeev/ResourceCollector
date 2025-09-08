@@ -1090,7 +1090,7 @@ GameObject:
   - component: {fileID: 7649027370537693282}
   - component: {fileID: 5770289999048114551}
   - component: {fileID: 4284361151457028819}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Harvester
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1325,7 +1325,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2498c6605e7a49141b1feb2d313a4a8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 7799825230033824676}
 --- !u!114 &-3920883144288309359
 MonoBehaviour:
   m_ObjectHideFlags: 0

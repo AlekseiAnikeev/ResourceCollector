@@ -7,19 +7,20 @@ public abstract class Tracker<T> : MonoBehaviour where T : MonoBehaviour, ITrack
 {
     private readonly Dictionary<T, bool> _trackedObjects = new();
 
+    [SerializeField] Scanner _scanner;
+
     public event Action<T> ObjectAdded;
 
-    protected virtual void OnTriggerEnter(Collider other)
+    private void OnEnable()
     {
-        if (other.TryGetComponent(out T obj))
-            RegisterTrackableObject(obj);
+        _scanner.ScanCompleted += OnScanCompleted;
     }
 
     protected virtual void OnDisable()
     {
-        foreach (var trackedObject in _trackedObjects)
+        foreach (var trackedObject in _trackedObjects.Keys.ToList())
         {
-            if (trackedObject.Key is ITrackable<T> trackable)
+            if (trackedObject is ITrackable<T> trackable)
                 trackable.Collected -= UnregisterTrackableObject;
         }
 
@@ -52,9 +53,9 @@ public abstract class Tracker<T> : MonoBehaviour where T : MonoBehaviour, ITrack
         if (_trackedObjects.ContainsKey(obj))
             return;
 
-        obj.Collected += UnregisterTrackableObject;
-
         _trackedObjects[obj] = false;
+
+        obj.Collected += UnregisterTrackableObject;
 
         ObjectAdded?.Invoke(obj);
     }
@@ -64,6 +65,17 @@ public abstract class Tracker<T> : MonoBehaviour where T : MonoBehaviour, ITrack
         if (_trackedObjects.Remove(obj))
         {
             obj.Collected -= UnregisterTrackableObject;
+        }
+    }
+
+    private void OnScanCompleted(Collider[] hits)
+    {
+        foreach (var hitObject in hits)
+        {
+            if (hitObject.TryGetComponent(out T obj))
+            {
+                RegisterTrackableObject(obj);
+            }
         }
     }
 }
