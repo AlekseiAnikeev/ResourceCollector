@@ -7,9 +7,9 @@ namespace ResourceCollector
     {
         [SerializeField] private ProgressBar _progressBar;
 
-        protected override void Awake()
+        protected override void OnEnable()
         {
-            base.Awake();
+            base.OnEnable();
             _progressBar?.Deactivate();
         }
 

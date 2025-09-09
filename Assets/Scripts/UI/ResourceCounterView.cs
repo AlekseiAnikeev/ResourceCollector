@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UI
 {
-    public class UIManager : MonoBehaviour
+    public class ResourceCounterView : MonoBehaviour
     {
         [SerializeField] private TMP_Text _resourcesText;
         [SerializeField] private SupplyCenter _mainBase;
@@ -20,7 +20,7 @@ namespace UI
 
         private void UpdateResourcesCountUI(int amount)
         {
-            _resourcesText.text = $"Кристалов: {amount}";
+            _resourcesText.text = $"$: {amount}";
         }
     }
 }

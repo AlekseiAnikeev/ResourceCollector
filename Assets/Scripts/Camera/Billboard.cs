@@ -4,12 +4,14 @@ namespace Camera
 {
     public class Billboard : MonoBehaviour
     {
-        private UnityEngine.Camera _mainCamera;
+        [SerializeField] private UnityEngine.Camera _mainCamera;
         private Quaternion _initialRotation;
 
-        private void Start()
+        private void Awake()
         {
-            _mainCamera = UnityEngine.Camera.main;
+            if (_mainCamera == null)
+                _mainCamera = UnityEngine.Camera.main;
+
             _initialRotation = transform.rotation;
         }
 

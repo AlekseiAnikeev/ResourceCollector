@@ -164,7 +164,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &2673278285622934929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,9 +194,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6cf82c0d4925c64b8a1220328980f9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fillImage: {fileID: 1234041924508875175}
-  canvasGroup: {fileID: 2151201049664221975}
-  hideDelay: 0.5
+  _hideDelay: 0.5
+  _fillImage: {fileID: 0}
 --- !u!225 &2151201049664221975
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -221,6 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c56e56f3ac9a124cb4ffc7d1eb22bba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mainCamera: {fileID: 0}
 --- !u!114 &-4542082857820534900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,8 +233,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500edea42fa3b3948973c5f9740526be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 880668307619960015, guid: 5c46d1f175ea31740ac35aa36035ecd8, type: 3}
-  positionOffset: {x: 0, y: 2, z: 0}
+  _target: {fileID: 0}
+  _positionOffset: {x: 0, y: 2, z: 0}
 --- !u!1 &7391735324328432871
 GameObject:
   m_ObjectHideFlags: 0

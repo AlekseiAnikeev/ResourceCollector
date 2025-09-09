@@ -7192,7 +7192,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6cf82c0d4925c64b8a1220328980f9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hideDelay: 0.5
   _fillImage: {fileID: 1234041924508875175}
 --- !u!225 &2151201049664221975
 CanvasGroup:
@@ -7218,6 +7217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c56e56f3ac9a124cb4ffc7d1eb22bba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mainCamera: {fileID: 0}
 --- !u!114 &-4542082857820534900
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,6 +6,10 @@ namespace Camera
         Down,
         Left,
         Right,
-        Default
+        Default,
+        UpLeft,
+        DownLeft,
+        UpRight,
+        DownRight
     }
 }

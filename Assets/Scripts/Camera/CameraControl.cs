@@ -14,8 +14,7 @@ namespace Camera
 
         [SerializeField] private bool _moveWidthKeyboad;
         [SerializeField] private bool _moveWidthEdgeScrolling;
-
-
+        
         [Range(0, 1f)] [SerializeField] private float _fastSpeed = 0.05f;
         [Range(0, 1f)] [SerializeField] private float _normalSpeed = 0.01f;
         [Range(0, 50f)] [SerializeField] private float _movementSensitivity = 1f;
@@ -26,6 +25,10 @@ namespace Camera
         [SerializeField] private Texture2D _cursorArrowDown;
         [SerializeField] private Texture2D _cursorArrowLeft;
         [SerializeField] private Texture2D _cursorArrowRight;
+        [SerializeField] private Texture2D _cursorArrowUpLeft;
+        [SerializeField] private Texture2D _cursorArrowDownLeft;
+        [SerializeField] private Texture2D _cursorArrowUpRight;
+        [SerializeField] private Texture2D _cursorArrowDownRight;
 
         private Vector3 _newPosition;
         private Vector3 _dragStartPosition;
@@ -72,48 +75,53 @@ namespace Camera
 
             if (_moveWidthEdgeScrolling)
             {
-                Vector2 mousePos = Mouse.current.position.ReadValue();
+                Vector2 mousePosition = Mouse.current.position.ReadValue();
+                Vector3 moveDirection = Vector3.zero;
 
-                if (mousePos.x > Screen.width - _edgeSize)
+                CursorArrow newCursor = CursorArrow.Default;
+
+                if (mousePosition.x > Screen.width - _edgeSize)
                 {
-                    _newPosition += (transform.right * _movementSpeed);
-
-                    ChangeCursor(CursorArrow.Right);
-
-                    _isCursorSet = true;
+                    moveDirection += transform.right;
+                    newCursor = CursorArrow.Right;
                 }
-                else if (mousePos.x < _edgeSize)
+                else if (mousePosition.x < _edgeSize)
                 {
-                    _newPosition += (transform.right * -_movementSpeed);
-
-                    ChangeCursor(CursorArrow.Left);
-
-                    _isCursorSet = true;
+                    moveDirection -= transform.right;
+                    newCursor = CursorArrow.Left;
                 }
-                else if (mousePos.y > Screen.height - _edgeSize)
+
+                if (mousePosition.y > Screen.height - _edgeSize)
                 {
-                    _newPosition += (transform.forward * _movementSpeed);
-
-                    ChangeCursor(CursorArrow.Up);
-
-                    _isCursorSet = true;
-                }
-                else if (mousePos.y < _edgeSize)
-                {
-                    _newPosition += (transform.forward * -_movementSpeed);
-
-                    ChangeCursor(CursorArrow.Down);
-
-                    _isCursorSet = true;
-                }
-                else
-                {
-                    if (_isCursorSet)
+                    moveDirection += transform.forward;
+                    newCursor = newCursor switch
                     {
-                        ChangeCursor(CursorArrow.Default);
+                        CursorArrow.Left => CursorArrow.UpLeft,
+                        CursorArrow.Right => CursorArrow.UpRight,
+                        _ => CursorArrow.Up
+                    };
+                }
+                else if (mousePosition.y < _edgeSize)
+                {
+                    moveDirection -= transform.forward;
+                    newCursor = newCursor switch
+                    {
+                        CursorArrow.Left => CursorArrow.DownLeft,
+                        CursorArrow.Right => CursorArrow.DownRight,
+                        _ => CursorArrow.Down
+                    };
+                }
 
-                        _isCursorSet = false;
-                    }
+                if (moveDirection != Vector3.zero)
+                {
+                    _newPosition += moveDirection * _movementSpeed;
+                    ChangeCursor(newCursor);
+                    _isCursorSet = true;
+                }
+                else if (_isCursorSet)
+                {
+                    ChangeCursor(CursorArrow.Default);
+                    _isCursorSet = false;
                 }
             }
 
@@ -133,8 +141,7 @@ namespace Camera
                     break;
 
                 case CursorArrow.Down:
-                    Cursor.SetCursor(_cursorArrowDown, new Vector2(_cursorArrowDown.width, _cursorArrowDown.height),
-                        CursorMode.Auto);
+                    Cursor.SetCursor(_cursorArrowDown, Vector2.zero, CursorMode.Auto);
                     break;
 
                 case CursorArrow.Left:
@@ -142,9 +149,25 @@ namespace Camera
                     break;
 
                 case CursorArrow.Right:
-                    Cursor.SetCursor(_cursorArrowRight, new Vector2(_cursorArrowRight.width, _cursorArrowRight.height),
-                        CursorMode.Auto);
+                    Cursor.SetCursor(_cursorArrowRight, Vector2.zero, CursorMode.Auto);
                     break;
+
+                case CursorArrow.UpLeft:
+                    Cursor.SetCursor(_cursorArrowUpLeft, Vector2.zero, CursorMode.Auto);
+                    break;
+
+                case CursorArrow.UpRight:
+                    Cursor.SetCursor(_cursorArrowUpRight, Vector2.zero, CursorMode.Auto);
+                    break;
+
+                case CursorArrow.DownLeft:
+                    Cursor.SetCursor(_cursorArrowDownLeft, Vector2.zero, CursorMode.Auto);
+                    break;
+
+                case CursorArrow.DownRight:
+                    Cursor.SetCursor(_cursorArrowDownRight, Vector2.zero, CursorMode.Auto);
+                    break;
+
 
                 case CursorArrow.Default:
                     Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
