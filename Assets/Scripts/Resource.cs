@@ -18,12 +18,9 @@ public class Resource : MonoBehaviour, ITrackable<Resource>
         _rigidbody.isKinematic = true;
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OnReturnedToBase()
     {
-        if (other.TryGetComponent<SupplyCenter>(out _))
-        {
-            ReturnedToBase?.Invoke(this);
-        }
+        ReturnedToBase?.Invoke(this);
     }
 
     public void Collect()

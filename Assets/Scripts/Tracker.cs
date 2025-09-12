@@ -7,7 +7,7 @@ public abstract class Tracker<T> : MonoBehaviour where T : MonoBehaviour, ITrack
 {
     private readonly Dictionary<T, bool> _trackedObjects = new();
 
-    [SerializeField] Scanner _scanner;
+    [SerializeField] private Scanner _scanner;
 
     public event Action<T> ObjectAdded;
 

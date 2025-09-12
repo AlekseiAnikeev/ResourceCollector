@@ -6,20 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="99b995b4-79f1-408e-ab91-d716e547d5f0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ResourceCollector/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ResourceCollector/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Canvas.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Canvas.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/Harvester.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/Harvester.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/ProgressBar.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/ProgressBar.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefab/SupplyCenter.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/SupplyCenter.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Camera/Billboard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Camera/Billboard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Camera/CameraControl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Camera/CameraControl.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Camera/CursorArrow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Camera/CursorArrow.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ResourceCollector/HarvesterProgressUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ResourceCollector/HarvesterProgressUI.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ResourceTracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ResourceTracker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/ProgressBar.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/ProgressBar.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/ResourceCounterView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIManager.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/ResourceCounterView.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Resource.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Resource.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SupplyCenter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SupplyCenter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Tracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Tracker.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -205,6 +194,7 @@
       <workItem from="1757363120817" duration="4516000" />
       <workItem from="1757449691220" duration="8057000" />
       <workItem from="1757458571347" duration="42000" />
+      <workItem from="1757704652574" duration="2230000" />
     </task>
     <servers />
   </component>

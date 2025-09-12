@@ -58,6 +58,7 @@ public class SupplyCenter : MonoBehaviour
 
         resource.ResetState();
         _resourceTracker.Release(resource);
+        resource.OnReturnedToBase();
 
         if (_deliverySound != null)
             AudioSource.PlayClipAtPoint(_deliverySound, transform.position);
